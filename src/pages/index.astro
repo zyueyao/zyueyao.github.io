@@ -1,0 +1,159 @@
+---
+import SectionHeading from '../components/SectionHeading.astro';
+import { profile } from '../data/profile';
+import Layout from '../layouts/Layout.astro';
+
+const structuredData = {
+	'@context': 'https://schema.org',
+	'@type': 'Person',
+	name: profile.name,
+	email: profile.email,
+	jobTitle: profile.identityLine,
+	description: profile.intro.join(' '),
+	knowsAbout: profile.researchInterests,
+};
+
+const contactIcons = {
+	Email:
+		'M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2Zm0 4 8 5 8-5v10H4V8Zm8 3L4 6h16l-8 5Z',
+	Twitter:
+		'M21.9 7.8c-.7.3-1.5.5-2.3.6.8-.5 1.4-1.2 1.7-2.1-.8.5-1.7.8-2.6 1-1.5-1.6-4.2-1.7-5.8-.1-1 1-1.4 2.4-1.1 3.7-3-.2-5.8-1.6-7.6-4-.9 1.6-.5 3.7 1 4.8-.6 0-1.2-.2-1.7-.5 0 2.1 1.5 3.9 3.6 4.3-.6.2-1.2.2-1.8.1.6 1.8 2.3 3.1 4.2 3.1-1.6 1.3-3.7 2-5.8 2h-1c1.9 1.2 4.2 1.9 6.6 1.9 7.9 0 12.3-6.7 12.3-12.4v-.6c.9-.6 1.6-1.3 2.2-2.1Z',
+	LinkedIn:
+		'M6.6 8.8a2.2 2.2 0 1 1 0-4.4 2.2 2.2 0 0 1 0 4.4ZM4.8 10.4h3.5V20H4.8v-9.6Zm5.7 0h3.3v1.3h.1c.5-.9 1.6-1.7 3.3-1.7 3.5 0 4.2 2.3 4.2 5.2V20h-3.5v-4.1c0-1 0-2.3-1.4-2.3s-1.6 1.1-1.6 2.2V20h-3.5v-9.6Z',
+	Github:
+		'M12 2C6.5 2 2 6.6 2 12.2c0 4.5 2.9 8.3 6.8 9.7.5.1.7-.2.7-.5V19c-2.8.6-3.4-1.2-3.4-1.2-.5-1.2-1.1-1.6-1.1-1.6-.9-.6.1-.6.1-.6 1 .1 1.6 1 1.6 1 .9 1.5 2.4 1.1 3 .8.1-.7.4-1.1.7-1.4-2.2-.3-4.5-1.1-4.5-5 0-1.1.4-2 1-2.8-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.8 1 .8-.2 1.7-.3 2.5-.3.8 0 1.7.1 2.5.3 1.9-1.3 2.8-1 2.8-1 .5 1.4.2 2.4.1 2.7.7.8 1 1.7 1 2.8 0 3.9-2.3 4.7-4.5 5 .4.3.8 1 .8 2v3c0 .3.2.6.7.5 3.9-1.4 6.8-5.2 6.8-9.7C22 6.6 17.5 2 12 2Z',
+	Scholar:
+		'M12 2 1 9l11 7 9-5.7V16h2V9L12 2ZM5 13.2v3.6c0 1.7 3.1 3.2 7 3.2s7-1.5 7-3.2v-3.6l-7 4.4-7-4.4Z',
+} as const;
+---
+
+<Layout
+	title={profile.name}
+	description="Professional academic homepage for Yueyao Zhang, featuring research interests, education, selected experience, awards, and a direct CV link."
+	structuredData={structuredData}
+>
+	<div class="academic-layout">
+		<aside class="profile-rail">
+			<div class="headshot-frame">
+				<img src={profile.headshot.src} alt={profile.headshot.alt} class="headshot-image" />
+			</div>
+
+			<div class="profile-copy">
+				<h1>{profile.name}</h1>
+				<p class="profile-role">{profile.identityLine}</p>
+				<p class="profile-location">
+					<svg class="location-icon" viewBox="0 0 24 24" aria-hidden="true">
+						<path
+							d="M12 2C8.1 2 5 5.1 5 9c0 5.3 7 13 7 13s7-7.7 7-13c0-3.9-3.1-7-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z"
+						/>
+					</svg>
+					<span>{profile.location}</span>
+				</p>
+			</div>
+
+			<ul class="contact-list" aria-label="Profile links">
+				{
+					profile.contactLinks.map((item) => (
+						<li>
+							<a
+								class="contact-link"
+								href={item.href}
+								target={item.href.startsWith('http') ? '_blank' : undefined}
+								rel={item.href.startsWith('http') ? 'noreferrer' : undefined}
+							>
+								<svg class="contact-icon" viewBox="0 0 24 24" aria-hidden="true">
+									<path d={contactIcons[item.label]} />
+								</svg>
+								<span>{item.label}</span>
+							</a>
+						</li>
+					))
+				}
+			</ul>
+		</aside>
+
+		<div class="content-column">
+			<section id="about" class="content-section">
+				<SectionHeading eyebrow="About" />
+				<div class="prose-block">
+					{profile.intro.map((paragraph) => <p>{paragraph}</p>)}
+				</div>
+			</section>
+
+			<section id="research-interests" class="content-section">
+				<SectionHeading eyebrow="Research Interests" />
+				<ul class="interest-list">
+					{profile.researchInterests.map((interest) => <li>{interest}</li>)}
+				</ul>
+			</section>
+
+			<section id="education" class="content-section">
+				<SectionHeading eyebrow="Education" />
+				<div class="education-list">
+					{profile.education.map((item) => (
+						<article class="education-entry">
+							<div class="entry-heading">
+								<div>
+									<h3>{item.school}</h3>
+									<p class="entry-subtitle">{item.degree}</p>
+								</div>
+								<p class="entry-period">{item.period}</p>
+							</div>
+							{item.detail ? <p class="entry-detail">{item.detail}</p> : null}
+							{item.gpa ? <p class="entry-detail">GPA: {item.gpa}</p> : null}
+						</article>
+					))}
+				</div>
+			</section>
+
+			<section id="research-experience" class="content-section">
+				<SectionHeading eyebrow="Research Experience" />
+				<div class="experience-list">
+					{profile.researchExperience.map((item) => (
+						<article class="experience-entry">
+							<div class="entry-heading">
+								<div>
+									<h3>{item.title}</h3>
+									{item.context ? <p class="entry-subtitle">{item.context}</p> : null}
+								</div>
+								<p class="entry-period">{item.period}</p>
+							</div>
+							{item.description ? <p class="entry-detail">{item.description}</p> : null}
+							<ul class="bullet-list">
+								{item.highlights.map((highlight) => <li>{highlight}</li>)}
+							</ul>
+						</article>
+					))}
+				</div>
+			</section>
+
+			<section id="internship-experience" class="content-section">
+				<SectionHeading eyebrow="Internship Experience" />
+				<div class="experience-list">
+					{profile.internshipExperience.map((item) => (
+						<article class="experience-entry">
+							<div class="entry-heading">
+								<div>
+									<h3>{item.title}</h3>
+									{item.context ? <p class="entry-subtitle">{item.context}</p> : null}
+								</div>
+								<p class="entry-period">{item.period}</p>
+							</div>
+							{item.description ? <p class="entry-detail">{item.description}</p> : null}
+							<ul class="bullet-list">
+								{item.highlights.map((highlight) => <li>{highlight}</li>)}
+							</ul>
+						</article>
+					))}
+				</div>
+			</section>
+
+			<section id="awards" class="content-section">
+				<SectionHeading eyebrow="Awards" />
+				<ul class="awards-list">
+					{profile.awards.map((award) => <li>{award}</li>)}
+				</ul>
+			</section>
+		</div>
+	</div>
+</Layout>

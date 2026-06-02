@@ -1,0 +1,12 @@
+---
+import { profile } from '../data/profile';
+---
+
+<footer class="site-footer">
+	<div class="site-footer-inner">
+		<p>{profile.name} | {profile.identityLine}</p>
+		<p>
+			<a href={`mailto:${profile.email}`}>{profile.email}</a>
+		</p>
+	</div>
+</footer>

@@ -1,0 +1,40 @@
+---
+import { siteInfo } from '../data/site';
+
+interface NavigationItem {
+	label: string;
+	href: string;
+}
+
+interface Props {
+	navigation: NavigationItem[];
+}
+
+const { navigation } = Astro.props;
+---
+
+<header class="site-header">
+	<div class="site-header-inner">
+		<a class="site-brand" href="#about">
+			<span class="brand-mark">YZ</span>
+			<span class="brand-copy">
+				<strong>Yueyao Zhang</strong>
+				<span>Learning, Design, and Technology</span>
+			</span>
+		</a>
+		<nav aria-label="Primary">
+			<ul class="nav-list">
+				{
+					navigation.map((item) => (
+						<li>
+							<a href={item.href}>{item.label}</a>
+						</li>
+					))
+				}
+			</ul>
+		</nav>
+		<a class="header-cv-link" href={siteInfo.cvPath} target="_blank" rel="noreferrer">
+			CV
+		</a>
+	</div>
+</header>
