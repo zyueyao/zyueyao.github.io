@@ -57,12 +57,9 @@ export const profile = {
 	],
 	researchInterests: [
 		'AI for education',
-		'Educational technology',
 		'Online learning',
 		'STEM education',
-		'Community-based and informal learning',
 		'Learning sciences',
-		'Learning design',
 	],
 	navigation: [
 		{ id: 'about', label: 'About', href: '#about' },
