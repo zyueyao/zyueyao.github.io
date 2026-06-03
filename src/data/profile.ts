@@ -123,7 +123,7 @@ export const profile = {
 		{
 			title: 'Co-Coordinator for Spark Festival of Learning',
 			period: 'Jan 2025 - Apr 2025',
-			context: 'Eileen Lappin Weiser Center for the Learning Sciences, University of Michigan | Ann Arbor, MI',
+			context: 'Eileen Lappin Weiser Center for the Learning Sciences, University of Michigan',
 			description:
 				'Learning festival coordination grounded in learning sciences, translating pedagogical goals into public-facing interactive experiences.',
 			highlights: [
