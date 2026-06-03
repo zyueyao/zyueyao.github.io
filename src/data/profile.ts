@@ -51,7 +51,7 @@ export const profile = {
 		alt: 'Portrait of Yueyao Zhang',
 	} satisfies Headshot,
 	intro: [
-		'I am an incoming Ph.D. student in Learning, Design, and Technology at the University of Tennessee, Knoxville, where I will work with Dr. Yukyeong Song.',
+		'I am an incoming Ph.D. student in Learning, Design, and Technology at the University of Tennessee, Knoxville.',
 		'My research examines how artificial intelligence and emerging technologies are reshaping learning environments. Grounded in the learning sciences, I study the design of educational technologies across STEM education, online learning, and community-based and informal settings, with particular attention to how these environments can support meaningful participation, engagement, and equitable access for diverse learners.',
 		'Methodologically, my work draws on qualitative and design-based approaches, with experience spanning program evaluation, learning experience design, and course operations.',
 	],
